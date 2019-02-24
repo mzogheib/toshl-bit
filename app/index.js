@@ -1,26 +1,46 @@
 import document from "document";
-import * as messaging from "messaging";
+import Messenger from "./messenger";
 
-messaging.peerSocket.onopen = function() {
-  console.log("App ready to send messages.");
-};
+console.log("App ready.");
 
-messaging.peerSocket.onerror = function(err) {
-  console.log("Connection error: " + err.code + " - " + err.message);
-};
+const expenses = [
+  {
+    amount: -4,
+    desc: "Soy latte",
+    category: "48218584",
+    tags: ["17310155"],
+  },
+  {
+    amount: -15,
+    desc: "Dinner",
+    category: "48218584",
+    tags: ["17310156"],
+  },
+  {
+    amount: -8,
+    desc: "Lunch",
+    category: "48218584",
+    tags: ["17310148"],
+  },
+  {
+    amount: -8,
+    desc: "Alcohol",
+    category: "48218584",
+    tags: ["17310157"],
+  },
+  {
+    amount: -10,
+    desc: "Groceries",
+    category: "50841185",
+    tags: ["17310147"],
+  },
+];
 
-function sendMessage(data) {
-  if (messaging.peerSocket.readyState === messaging.peerSocket.OPEN) {
-    messaging.peerSocket.send(data);
-  }
-}
-
-let list = document.getElementById("my-list");
-let items = list.getElementsByClassName("tile-list-item");
+const list = document.getElementById("my-list");
+const items = list.getElementsByClassName("tile-list-item");
 
 items.forEach((element, index) => {
   let touch = element.getElementById("touch-me");
-  touch.onclick = evt => {
-    sendMessage(index);
-  };
+  const expense = expenses[index];
+  touch.onclick = () => Messenger.send(expense);
 });
