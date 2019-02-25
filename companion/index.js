@@ -1,21 +1,13 @@
 import { geolocation } from "geolocation";
 import Toshl from "./toshl";
 import Messenger from "../common/messenger";
+import Utils from "../common/utils";
 
 console.log("Companion ready.");
 
-// Source: http://stackoverflow.com/questions/10830357/javascript-toisostring-ignores-timezone-offset
-const getTime = () => {
-  var tzoffset = new Date().getTimezoneOffset() * 60000;
-  var localISOTime = new Date(Date.now() - tzoffset).toISOString().slice(0, -1);
-  var date = localISOTime.substring(0, 10);
-  var time = localISOTime.substring(11, 19);
-  return { date, time };
-};
-
 const makeEntry = ({ coords, data }) => {
   const { latitude, longitude } = coords;
-  const { date, time } = getTime();
+  const { date, time } = Utils.getTime();
   const desc = `${time}\n\n${data.desc}`;
   const entry = {
     ...data,
