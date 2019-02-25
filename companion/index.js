@@ -1,6 +1,6 @@
-import * as messaging from "messaging";
 import { geolocation } from "geolocation";
 import Toshl from "./toshl";
+import Messenger from "../common/messenger";
 
 console.log("Companion ready.");
 
@@ -25,32 +25,21 @@ const makeEntry = ({ coords, data }) => {
     account: "2596649",
     currency: { code: "AUD" },
   };
-  return { entry };
+  return entry;
 };
 
-const sendEntry = ({ entry }) => Toshl.entries.create(entry);
+const entrySuccess = () => Messenger.send({ status: "SUCCESS" });
+const entryError = () => Messenger.send({ status: "ERROR" });
 
-const entrySuccess = () => {
-  if (messaging.peerSocket.readyState === messaging.peerSocket.OPEN) {
-    messaging.peerSocket.send({ status: "SUCCESS" });
-  }
-};
-
-const entryError = () => {
-  if (messaging.peerSocket.readyState === messaging.peerSocket.OPEN) {
-    messaging.peerSocket.send({ status: "ERROR" });
-  }
-};
-
-messaging.peerSocket.onopen = () => {
-  console.log("Companion ready to receive messages.");
-};
+const onMessage = data => handleMessage(data);
+Messenger.setOnMessage(onMessage);
 
 // Handle location errors better. Should still continue even without location.
-messaging.peerSocket.onmessage = function({ data }) {
+const handleMessage = data => {
   geolocation.getCurrentPosition(
     ({ coords }) => {
-      sendEntry(makeEntry({ coords, data }))
+      Toshl.entries
+        .create(makeEntry({ coords, data }))
         .then(entrySuccess)
         .catch(entryError);
     },

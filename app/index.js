@@ -1,7 +1,13 @@
 import document from "document";
-import Messenger from "./messenger";
+import { vibration } from "haptics";
+import Messenger from "../common/messenger";
 
 console.log("App ready.");
+
+const VIBRATION_MAP = {
+  SUCCESS: "confirmation-max",
+  ERROR: "nudge-max",
+};
 
 const expenses = [
   {
@@ -38,6 +44,9 @@ const expenses = [
 
 const list = document.getElementById("my-list");
 const items = list.getElementsByClassName("tile-list-item");
+
+const handleMessage = data => vibration.start(VIBRATION_MAP[data.status]);
+Messenger.setOnMessage(handleMessage);
 
 items.forEach((element, index) => {
   let touch = element.getElementById("touch-me");
