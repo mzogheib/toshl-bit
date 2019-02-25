@@ -23,8 +23,7 @@ const makeEntry = ({ coords, data }) => {
 const entrySuccess = () => Messenger.send({ status: "SUCCESS" });
 const entryError = () => Messenger.send({ status: "ERROR" });
 
-const onMessage = data => handleMessage(data);
-Messenger.setOnMessage(onMessage);
+Messenger.onMessage(handleMessage);
 
 // Handle location errors better. Should still continue even without location.
 const handleMessage = data => {

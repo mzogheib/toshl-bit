@@ -46,7 +46,7 @@ const list = document.getElementById("my-list");
 const items = list.getElementsByClassName("tile-list-item");
 
 const handleMessage = data => vibration.start(VIBRATION_MAP[data.status]);
-Messenger.setOnMessage(handleMessage);
+Messenger.onMessage(handleMessage);
 
 items.forEach((element, index) => {
   let touch = element.getElementById("touch-me");
