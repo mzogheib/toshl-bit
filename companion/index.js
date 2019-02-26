@@ -1,5 +1,5 @@
 import Geolocation from "../common/geolocation";
-import Toshl from "./toshl";
+import Toshl from "../common/toshl";
 import Messenger from "../common/messenger";
 import Utils from "../common/utils";
 

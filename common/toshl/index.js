@@ -1,6 +1,6 @@
 import base64 from "base-64";
 import token from "../../private/toshl-token";
-import Request from "../../common/request";
+import Request from "../request";
 
 const toshlApiUrl = "https://api.toshl.com/entries";
 const auth = base64.encode(`${token}:`);
