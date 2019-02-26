@@ -1,4 +1,4 @@
-import { geolocation } from "geolocation";
+import Geolocation from "../common/geolocation";
 import Toshl from "./toshl";
 import Messenger from "../common/messenger";
 import Utils from "../common/utils";
@@ -25,17 +25,22 @@ const makeEntry = ({ coords, data }) => {
   return entry;
 };
 
-// Handle location errors better. Should still continue even without location.
-const getLocationAndCreateEntry = data =>
-  geolocation.getCurrentPosition(
-    ({ coords }) => {
-      Toshl.entries
-        .create(makeEntry({ coords, data }))
-        .then(entrySuccess)
-        .catch(entryError);
-    },
-    error => console.error(error)
+// If location cannot be found, resolve an empty object so that an entry
+// can be created regardless
+const attemptLocation = () =>
+  new Promise(resolve =>
+    Geolocation.getCurrentPosition()
+      .then(resolve)
+      .catch(() => resolve({ coords: {} }))
   );
+
+const getLocationAndCreateEntry = data =>
+  attemptLocation()
+    .then(({ coords }) => ({ coords, data }))
+    .then(makeEntry)
+    .then(Toshl.entries.create)
+    .then(entrySuccess)
+    .catch(entryError);
 
 const messageMap = {
   [Messenger.ENTRY_CREATE]: getLocationAndCreateEntry,
@@ -43,7 +48,6 @@ const messageMap = {
 
 const handleMessage = ({ key, data }) => {
   const func = messageMap[key];
-  console.log(key, data);
   if (func) {
     func(data);
   } else {
