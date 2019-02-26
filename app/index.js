@@ -1,55 +1,33 @@
 import document from "document";
 import { vibration } from "haptics";
 import Messenger from "../common/messenger";
+import expenses from "./expenses";
 
 console.log("App ready.");
 
-const VIBRATION_MAP = {
-  SUCCESS: "confirmation-max",
-  ERROR: "nudge-max",
+const messageMap = {
+  [Messenger.COMPANION_READY]: () =>
+    console.log("App is free to send messages to Companion"),
+  [Messenger.ENTRY_CREATE_SUCCESS]: () => vibration.start("confirmation-max"),
+  [Messenger.ENTRY_CREATE_ERROR]: () => vibration.start("nudge-max"),
 };
-
-const expenses = [
-  {
-    amount: -4,
-    desc: "Soy latte",
-    category: "48218584",
-    tags: ["17310155"],
-  },
-  {
-    amount: -15,
-    desc: "Dinner",
-    category: "48218584",
-    tags: ["17310156"],
-  },
-  {
-    amount: -8,
-    desc: "Lunch",
-    category: "48218584",
-    tags: ["17310148"],
-  },
-  {
-    amount: -8,
-    desc: "Alcohol",
-    category: "48218584",
-    tags: ["17310157"],
-  },
-  {
-    amount: -10,
-    desc: "Groceries",
-    category: "50841185",
-    tags: ["17310147"],
-  },
-];
 
 const list = document.getElementById("my-list");
 const items = list.getElementsByClassName("tile-list-item");
 
-const handleMessage = data => vibration.start(VIBRATION_MAP[data.status]);
+const handleMessage = ({ key, data }) => {
+  const func = messageMap[key];
+  if (func) {
+    func(data);
+  } else {
+    console.error("Unknown message received.");
+  }
+};
 Messenger.onMessage(handleMessage);
 
 items.forEach((element, index) => {
   let touch = element.getElementById("touch-me");
   const expense = expenses[index];
-  touch.onclick = () => Messenger.send(expense);
+  touch.onclick = () =>
+    Messenger.send({ key: Messenger.ENTRY_CREATE, data: expense });
 });
