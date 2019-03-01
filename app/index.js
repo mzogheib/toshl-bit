@@ -4,10 +4,16 @@ import Messenger from "../common/messenger";
 import expenses from "./expenses";
 
 console.log("App ready.");
+const splashScreen = document.getElementById("splash");
+const expensesScreen = document.getElementById("expenses");
+splashScreen.style.display = "inline";
+expensesScreen.style.display = "none";
 
 const messageMap = {
-  [Messenger.COMPANION_READY]: () =>
-    console.log("App is free to send messages to Companion"),
+  [Messenger.COMPANION_READY]: () => {
+    splashScreen.style.display = "none";
+    expensesScreen.style.display = "inline";
+  },
   [Messenger.ENTRY_CREATE_SUCCESS]: () => vibration.start("confirmation-max"),
   [Messenger.ENTRY_CREATE_ERROR]: () => vibration.start("nudge-max"),
 };
@@ -25,12 +31,12 @@ const handleMessage = ({ key, data }) => {
 };
 Messenger.onMessage(handleMessage);
 
-items.forEach((element, index) => {
+items.forEach((item, index) => {
   const expense = expenses[index];
-  element.getElementById("text-upper").text = expense.textUpper;
-  element.getElementById("text-lower").text = expense.textLower;
+  item.getElementById("text-upper").text = expense.textUpper;
+  item.getElementById("text-lower").text = expense.textLower;
 
-  const touch = element.getElementById("touch-me");
+  const touch = item.getElementById("touch-me");
   touch.onclick = () =>
     Messenger.send({ key: Messenger.ENTRY_CREATE, data: expense.data });
 });
