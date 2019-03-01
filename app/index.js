@@ -26,8 +26,11 @@ const handleMessage = ({ key, data }) => {
 Messenger.onMessage(handleMessage);
 
 items.forEach((element, index) => {
-  let touch = element.getElementById("touch-me");
   const expense = expenses[index];
+  element.getElementById("text-upper").text = expense.textUpper;
+  element.getElementById("text-lower").text = expense.textLower;
+
+  const touch = element.getElementById("touch-me");
   touch.onclick = () =>
-    Messenger.send({ key: Messenger.ENTRY_CREATE, data: expense });
+    Messenger.send({ key: Messenger.ENTRY_CREATE, data: expense.data });
 });
