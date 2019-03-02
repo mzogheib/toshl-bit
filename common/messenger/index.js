@@ -20,10 +20,7 @@ const vocab = [
   "ENTRY_CREATE",
   "ENTRY_CREATE_SUCCESS",
   "ENTRY_CREATE_ERROR",
-].reduce((prev, next) => {
-  prev[next] = next;
-  return prev;
-}, {});
+].reduce((obj, val) => ({ [val]: val, ...obj }), {});
 
 export default {
   send,
