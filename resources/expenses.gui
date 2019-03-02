@@ -1,31 +1,23 @@
 <svg id="expenses">
   <defs>
     <symbol
-      id="my-tile-item"
+      id="list-item"
+      class="list-item"
       href="#tile-list-item"
       focusable="false"
-      pointer-events="none"
       system-events="all"
     >
-      <text id="text-upper" text-length="64" y="40%" />
-      <text id="text-lower" text-length="64" y="80%" />
-      <rect id="tile-divider-bottom" class="tile-divider-bottom" />
-      <rect
-        id="touch-me"
-        pointer-events="all"
-        x="0"
-        y="0"
-        width="100%"
-        height="100%-2"
-        opacity="0"
-      />
+      <text id="list-item__text-upper" text-length="64" y="40%" />
+      <text id="list-item__text-lower" text-length="64" y="80%" />
+      <rect class="list-item__divider" x="0" y="100%-20" />
+      <rect id="list-item__touch" class="list-item__touch" x="0" y="0" />
     </symbol>
   </defs>
   <use id="my-list" href="#tile-list">
-    <use href="#my-tile-item" class="tile-list-item" />
-    <use href="#my-tile-item" class="tile-list-item" />
-    <use href="#my-tile-item" class="tile-list-item" />
-    <use href="#my-tile-item" class="tile-list-item" />
-    <use href="#my-tile-item" class="tile-list-item" />
+    <use href="#list-item" />
+    <use href="#list-item" />
+    <use href="#list-item" />
+    <use href="#list-item" />
+    <use href="#list-item" />
   </use>
 </svg>

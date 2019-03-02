@@ -19,7 +19,7 @@ const messageMap = {
 };
 
 const list = document.getElementById("my-list");
-const items = list.getElementsByClassName("tile-list-item");
+const items = list.getElementsByClassName("list-item");
 
 const handleMessage = ({ key, data }) => {
   const func = messageMap[key];
@@ -33,10 +33,10 @@ Messenger.onMessage(handleMessage);
 
 items.forEach((item, index) => {
   const expense = expenses[index];
-  item.getElementById("text-upper").text = expense.textUpper;
-  item.getElementById("text-lower").text = expense.textLower;
+  item.getElementById("list-item__text-upper").text = expense.textUpper;
+  item.getElementById("list-item__text-lower").text = expense.textLower;
 
-  const touch = item.getElementById("touch-me");
+  const touch = item.getElementById("list-item__touch");
   touch.onclick = () =>
     Messenger.send({ key: Messenger.ENTRY_CREATE, data: expense.data });
 });
