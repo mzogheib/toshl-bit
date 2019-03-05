@@ -1,4 +1,5 @@
 <svg>
-  <link rel="import" href="screens/loading.gui" />
-  <link rel="import" href="screens/expenses.gui" />
+  <link rel="stylesheet" href="stylesheets/typography.css" />
+  <link rel="import" href="screens/loading/index.gui" />
+  <link rel="import" href="screens/expenses/index.gui" />
 </svg>

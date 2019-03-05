@@ -1,7 +1,5 @@
 <svg>
   <defs>
-    <link rel="stylesheet" href="stylesheets/typography.css" />
-    <link rel="stylesheet" href="stylesheets/list.css" />
     <link rel="import" href="/mnt/sysassets/widgets_common.gui" />
     <link rel="import" href="/mnt/sysassets/widgets/baseview_widget.gui" />
     <link rel="import" href="/mnt/sysassets/widgets/tile_list_widget.gui" />

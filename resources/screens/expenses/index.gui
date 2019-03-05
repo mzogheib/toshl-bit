@@ -1,5 +1,7 @@
 <svg id="expenses">
   <defs>
+    <link rel="import" href="/mnt/sysassets/widgets/tile_list_widget.gui" />
+    <link rel="stylesheet" href="index.css" />
     <symbol
       id="list-item"
       class="list-item"
