@@ -1,24 +1,17 @@
 import { vibration } from "haptics";
 import Messenger from "../common/messenger";
-import loadingScreen from "./screens/loading";
-import expensesScreen from "./screens/expenses";
+import screens from "./screens";
 
 console.log("App ready.");
-expensesScreen.hide();
-loadingScreen.show();
+screens.show("loading");
 
-const onCompanionReady = () => {
-  loadingScreen.hide();
-  expensesScreen.show();
-};
+const onCompanionReady = () => screens.show("expenses");
 const onEntryCreateSuccess = () => {
-  loadingScreen.hide();
-  expensesScreen.show();
+  screens.show("expenses");
   vibration.start("confirmation-max");
 };
 const onEntryCreateError = () => {
-  loadingScreen.hide();
-  expensesScreen.show();
+  screens.show("expenses");
   vibration.start("nudge-max");
 };
 
@@ -39,8 +32,9 @@ const handleMessage = ({ key, data }) => {
 Messenger.onMessage(handleMessage);
 
 const createExpense = data => {
-  expensesScreen.hide();
-  loadingScreen.show();
+  screens.show("loading");
   Messenger.send({ key: Messenger.ENTRY_CREATE, data });
 };
-expensesScreen.onTouch(createExpense);
+// TODO: could this be separated further? i.e. treat `screens` like a router so it shouldn't
+// know about onTouch
+screens.expenses.onTouch(createExpense);
