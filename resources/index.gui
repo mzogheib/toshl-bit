@@ -1,4 +1,4 @@
 <svg>
-  <link rel="import" href="screens/splash.gui" />
+  <link rel="import" href="screens/loading.gui" />
   <link rel="import" href="screens/expenses.gui" />
 </svg>

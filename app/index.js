@@ -4,18 +4,34 @@ import Messenger from "../common/messenger";
 import expenses from "./expenses";
 
 console.log("App ready.");
-const splashScreen = document.getElementById("splash");
-const expensesScreen = document.getElementById("expenses");
-splashScreen.style.display = "inline";
-expensesScreen.style.display = "none";
+
+const screens = [
+  { name: "loading", element: document.getElementById("loading") },
+  { name: "expenses", element: document.getElementById("expenses") },
+];
+
+const showScreen = (screenName, screens) =>
+  screens.forEach(({ name, element }) => {
+    const newDisplay = name === screenName ? "inline" : "none";
+    element.style.display = newDisplay;
+  });
+
+showScreen("loading", screens);
+
+const onCompanionReady = () => showScreen("expenses", screens);
+const onEntryCreateSuccess = () => {
+  showScreen("expenses", screens);
+  vibration.start("confirmation-max");
+};
+const onEntryCreateError = () => {
+  showScreen("expenses", screens);
+  vibration.start("nudge-max");
+};
 
 const messageMap = {
-  [Messenger.COMPANION_READY]: () => {
-    splashScreen.style.display = "none";
-    expensesScreen.style.display = "inline";
-  },
-  [Messenger.ENTRY_CREATE_SUCCESS]: () => vibration.start("confirmation-max"),
-  [Messenger.ENTRY_CREATE_ERROR]: () => vibration.start("nudge-max"),
+  [Messenger.COMPANION_READY]: onCompanionReady,
+  [Messenger.ENTRY_CREATE_SUCCESS]: onEntryCreateSuccess,
+  [Messenger.ENTRY_CREATE_ERROR]: onEntryCreateError,
 };
 
 const list = document.getElementById("my-list");
@@ -37,6 +53,8 @@ items.forEach((item, index) => {
   item.getElementById("list-item__text-lower").text = expense.textLower;
 
   const touch = item.getElementById("list-item__touch");
-  touch.onclick = () =>
+  touch.onclick = () => {
+    showScreen("loading", screens);
     Messenger.send({ key: Messenger.ENTRY_CREATE, data: expense.data });
+  };
 });
