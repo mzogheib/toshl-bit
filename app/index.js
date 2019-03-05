@@ -1,8 +1,5 @@
-import document from "document";
 import { vibration } from "haptics";
 import Messenger from "../common/messenger";
-import expenses from "./expenses";
-
 import loadingScreen from "./screens/loading";
 import expensesScreen from "./screens/expenses";
 
@@ -31,9 +28,6 @@ const messageMap = {
   [Messenger.ENTRY_CREATE_ERROR]: onEntryCreateError,
 };
 
-const list = document.getElementById("my-list");
-const items = list.getElementsByClassName("list-item");
-
 const handleMessage = ({ key, data }) => {
   const func = messageMap[key];
   if (func) {
@@ -44,15 +38,9 @@ const handleMessage = ({ key, data }) => {
 };
 Messenger.onMessage(handleMessage);
 
-items.forEach((item, index) => {
-  const expense = expenses[index];
-  item.getElementById("list-item__text-upper").text = expense.textUpper;
-  item.getElementById("list-item__text-lower").text = expense.textLower;
-
-  const touch = item.getElementById("list-item__touch");
-  touch.onclick = () => {
-    expensesScreen.hide();
-    loadingScreen.show();
-    Messenger.send({ key: Messenger.ENTRY_CREATE, data: expense.data });
-  };
-});
+const createExpense = data => {
+  expensesScreen.hide();
+  loadingScreen.show();
+  Messenger.send({ key: Messenger.ENTRY_CREATE, data });
+};
+expensesScreen.onTouch(createExpense);
