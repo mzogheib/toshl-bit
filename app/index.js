@@ -3,28 +3,25 @@ import { vibration } from "haptics";
 import Messenger from "../common/messenger";
 import expenses from "./expenses";
 
+import loadingScreen from "./screens/loading";
+import expensesScreen from "./screens/expenses";
+
 console.log("App ready.");
+expensesScreen.hide();
+loadingScreen.show();
 
-const screens = [
-  { name: "loading", element: document.getElementById("loading") },
-  { name: "expenses", element: document.getElementById("expenses") },
-];
-
-const showScreen = (screenName, screens) =>
-  screens.forEach(({ name, element }) => {
-    const newDisplay = name === screenName ? "inline" : "none";
-    element.style.display = newDisplay;
-  });
-
-showScreen("loading", screens);
-
-const onCompanionReady = () => showScreen("expenses", screens);
+const onCompanionReady = () => {
+  loadingScreen.hide();
+  expensesScreen.show();
+};
 const onEntryCreateSuccess = () => {
-  showScreen("expenses", screens);
+  loadingScreen.hide();
+  expensesScreen.show();
   vibration.start("confirmation-max");
 };
 const onEntryCreateError = () => {
-  showScreen("expenses", screens);
+  loadingScreen.hide();
+  expensesScreen.show();
   vibration.start("nudge-max");
 };
 
@@ -54,7 +51,8 @@ items.forEach((item, index) => {
 
   const touch = item.getElementById("list-item__touch");
   touch.onclick = () => {
-    showScreen("loading", screens);
+    expensesScreen.hide();
+    loadingScreen.show();
     Messenger.send({ key: Messenger.ENTRY_CREATE, data: expense.data });
   };
 });
