@@ -1,7 +1,6 @@
 <svg>
-  <defs>
-    <link rel="import" href="/mnt/sysassets/widgets_common.gui" />
-    <link rel="import" href="/mnt/sysassets/widgets/baseview_widget.gui" />
-    <link rel="import" href="/mnt/sysassets/widgets/tile_list_widget.gui" />
-  </defs>
+  <link rel="import" href="/mnt/sysassets/widgets_common.gui" />
+  <link rel="import" href="/mnt/sysassets/widgets/baseview_widget.gui" />
+  <link rel="import" href="/mnt/sysassets/widgets/tile_list_widget.gui" />
+  <link rel="import" href="/mnt/sysassets/widgets/spinner_widget.gui" />
 </svg>
