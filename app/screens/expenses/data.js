@@ -10,8 +10,8 @@ export default [
     },
   },
   {
-    textUpper: "Lunch",
-    textLower: "01. Eating Out, $8.00",
+    textUpper: "Dinner",
+    textLower: "01. Eating Out, $15.00",
     data: {
       amount: -15,
       desc: "Dinner",
@@ -20,8 +20,8 @@ export default [
     },
   },
   {
-    textUpper: "Dinner",
-    textLower: "01. Eating Out, $15.00",
+    textUpper: "Lunch",
+    textLower: "01. Eating Out, $8.00",
     data: {
       amount: -8,
       desc: "Lunch",
