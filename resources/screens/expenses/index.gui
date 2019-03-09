@@ -9,16 +9,18 @@
       focusable="false"
       system-events="all"
     >
-      <text id="expenses__item-text-upper" text-length="64" y="40%" />
-      <text id="expenses__item-text-lower" text-length="64" y="80%" />
-      <rect class="expenses__item-divider" x="0" y="100%-2" />
-      <rect
-        id="expenses__item-touch"
-        class="expenses__item-touch"
-        x="0"
-        y="0"
-        height="100%-2"
-      />
+      <rect id="expenses__item-background" height="100%" width="100%">
+        <text id="expenses__item-text-upper" text-length="64" y="40%" />
+        <text id="expenses__item-text-lower" text-length="64" y="80%" />
+        <rect class="expenses__item-divider" x="0" y="100%-2" />
+        <rect
+          id="expenses__item-touch"
+          class="expenses__item-touch"
+          x="0"
+          y="0"
+          height="100%-2"
+        />
+      </rect>
     </symbol>
   </defs>
   <use id="expenses__list" href="#tile-list">
