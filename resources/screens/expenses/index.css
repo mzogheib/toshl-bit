@@ -6,7 +6,7 @@
 .expenses__item-divider {
   width: 100%;
   height: 2;
-  fill: #ffffff;
+  fill: "fb-white";
 }
 
 .expenses__item-touch {
