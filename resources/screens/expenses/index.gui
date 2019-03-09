@@ -3,29 +3,29 @@
   <link rel="stylesheet" href="index.css" />
   <defs>
     <symbol
-      id="list-item"
-      class="list-item"
+      id="expenses__item"
+      class="expenses__item"
       href="#tile-list-item"
       focusable="false"
       system-events="all"
     >
-      <text id="list-item__text-upper" text-length="64" y="40%" />
-      <text id="list-item__text-lower" text-length="64" y="80%" />
-      <rect class="list-item__divider" x="0" y="100%-2" />
+      <text id="expenses__item-text-upper" text-length="64" y="40%" />
+      <text id="expenses__item-text-lower" text-length="64" y="80%" />
+      <rect class="expenses__item-divider" x="0" y="100%-2" />
       <rect
-        id="list-item__touch"
-        class="list-item__touch"
+        id="expenses__item-touch"
+        class="expenses__item-touch"
         x="0"
         y="0"
         height="100%-2"
       />
     </symbol>
   </defs>
-  <use id="my-list" href="#tile-list">
-    <use href="#list-item" />
-    <use href="#list-item" />
-    <use href="#list-item" />
-    <use href="#list-item" />
-    <use href="#list-item" />
+  <use id="expenses__list" href="#tile-list">
+    <use href="#expenses__item" />
+    <use href="#expenses__item" />
+    <use href="#expenses__item" />
+    <use href="#expenses__item" />
+    <use href="#expenses__item" />
   </use>
 </svg>

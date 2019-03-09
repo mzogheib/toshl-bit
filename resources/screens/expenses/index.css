@@ -1,15 +1,15 @@
-.list-item {
+.expenses__item {
   height: 50%;
   pointer-events: "none";
 }
 
-.list-item__divider {
+.expenses__item-divider {
   width: 100%;
   height: 2;
   fill: #ffffff;
 }
 
-.list-item__touch {
+.expenses__item-touch {
   opacity: 0;
   width: 100%;
   pointer-events: all;

@@ -1,4 +1,4 @@
 <svg id="loading">
   <link rel="stylesheet" href="index.css" />
-  <use id="spinner" href="#spinner" x="50%-25" y="50%-25" />
+  <use id="loading__spinner" href="#spinner" x="50%-25" y="50%-25" />
 </svg>
